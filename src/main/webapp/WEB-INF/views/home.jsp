@@ -11,7 +11,7 @@
     <h1>Casa do Código</h1>
     <table>
         <tr>
-            <td>Java 10 Prático</td>
+            <td>Java 9 Prático</td>
             <td>Certificação OCJP</td>
         </tr>
         <tr>
