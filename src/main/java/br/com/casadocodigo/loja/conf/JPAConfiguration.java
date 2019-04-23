@@ -10,7 +10,9 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+@EnableTransactionManagement
 public class JPAConfiguration {
 
 	@Bean
@@ -23,7 +25,9 @@ public class JPAConfiguration {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setUsername("root");
 		dataSource.setPassword("root");
-		dataSource.setUrl("jdbc://mysql://localhost:3306/casadocodigo");
+//		dataSource.setUrl("jdbc:mysql://localhost:3306/casadocodigo?useSSL=false&useTimezone=true&serverTimezone=America/Sao_Paulo");
+		dataSource.setUrl("jdbc:mysql://localhost/casadocodigo");
+//		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		factoryBean.setDataSource(dataSource);
 
