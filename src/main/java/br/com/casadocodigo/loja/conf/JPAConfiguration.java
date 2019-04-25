@@ -17,7 +17,9 @@ public class JPAConfiguration {
 
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+		
 		LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
+		System.out.println("Teste");
 
 		JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		factoryBean.setJpaVendorAdapter(vendorAdapter);
@@ -42,7 +44,7 @@ public class JPAConfiguration {
 
 		return factoryBean;
 	}
-	
+
 	@Bean
 	public JpaTransactionManager transictionManager(EntityManagerFactory emf) {
 		return new JpaTransactionManager(emf);
