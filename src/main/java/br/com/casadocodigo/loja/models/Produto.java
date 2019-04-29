@@ -1,6 +1,7 @@
 package br.com.casadocodigo.loja.models;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.ElementCollection;
@@ -8,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @SuppressWarnings("serial")
 @Entity
@@ -18,6 +21,9 @@ public class Produto implements Serializable {
 	private String titulo;
 	private String descricao;
 	private int paginas;
+
+	@DateTimeFormat
+	private Calendar dataLancamento;
 
 	@ElementCollection
 	private List<Preco> precos;
@@ -60,6 +66,14 @@ public class Produto implements Serializable {
 
 	public void setPrecos(List<Preco> precos) {
 		this.precos = precos;
+	}
+
+	public Calendar getDataLancamento() {
+		return dataLancamento;
+	}
+
+	public void setDataLancamento(Calendar dataLancamento) {
+		this.dataLancamento = dataLancamento;
 	}
 
 	@Override
