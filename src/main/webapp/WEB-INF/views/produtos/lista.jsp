@@ -13,7 +13,8 @@
 <body>
 	<h1>Lista de Produtos</h1>
 
-	<div>${message}</div>
+	<div>${sucesso}</div>
+	<div>${falha}</div>
 
 	<table>
 		<tr>

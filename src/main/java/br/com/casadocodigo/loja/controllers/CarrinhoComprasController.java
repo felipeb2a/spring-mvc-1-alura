@@ -1,5 +1,7 @@
 package br.com.casadocodigo.loja.controllers;
 
+import java.io.Serializable;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -17,7 +19,9 @@ import br.com.casadocodigo.loja.models.TipoPreco;
 @Controller
 @RequestMapping("/carrinho")
 @Scope(value = WebApplicationContext.SCOPE_REQUEST)
-public class CarrinhoComprasController {
+public class CarrinhoComprasController implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	private ProdutoDAO produtoDao;
@@ -48,6 +52,12 @@ public class CarrinhoComprasController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView itens() {
 		return new ModelAndView("carrinho/itens");
+	}
+	
+	@RequestMapping("/remover")
+	public ModelAndView remover(Integer produtoId, TipoPreco tipoPreco) {
+		carrinho.remover(produtoId, tipoPreco);
+		return new ModelAndView("redirect:/carrinho");
 	}
 
 }

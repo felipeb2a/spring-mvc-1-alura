@@ -58,7 +58,7 @@ public class ProdutosController {
 
 		produtoDao.gravar(produto);
 
-		redirectAttributes.addFlashAttribute("message", "Produto cadastrado com sucesso!");
+		redirectAttributes.addFlashAttribute("sucesso", "Produto cadastrado com sucesso!");
 
 		return new ModelAndView("redirect:produtos");
 	}
