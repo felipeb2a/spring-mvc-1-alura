@@ -9,6 +9,9 @@
 <meta charset="UTF-8">
 <title>Livros de Java, Android, iPhone, PHP, Ruby e muito mais -
 	Casa do Código</title>
+
+<link rel="stylesheet" href="resources/css/bootstrap.min.css" />
+<link rel="stylesheet" href="resources/css/bootstrap-theme.min.css" />
 </head>
 <body>
 	<h1>Lista de Produtos</h1>
@@ -24,11 +27,9 @@
 		</tr>
 		<c:forEach items="${produtos}" var="produto">
 			<tr>
-				<td>
-		            <a href="${s:mvcUrl('PC#detalhe').arg(0,produto.id).build()}">
-		                ${produto.titulo}
-		            </a>
-	            </td>
+				<td><a
+					href="${s:mvcUrl('PC#detalhe').arg(0,produto.id).build()}">
+						${produto.titulo} </a></td>
 				<td>${produto.descricao}</td>
 				<td>${produto.paginas}</td>
 			</tr>

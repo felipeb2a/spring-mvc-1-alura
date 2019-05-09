@@ -10,6 +10,10 @@
 <meta charset="UTF-8">
 <title>Livros de Java, Android, iPhone, PHP, Ruby e muito mais -
 	Casa do Código</title>
+
+<c:url value="/resources/css" var="cssPath"/>
+<link rel="stylesheet" href="${cssPath }/bootstrap.min.css" />
+<link rel="stylesheet" href="${cssPath }/bootstrap-theme.min.css" />
 </head>
 <body>
 
@@ -36,7 +40,7 @@
 			<form:input path="dataLancamento" />
 			<form:errors path="dataLancamento" />
 		</div>
-		
+
 
 		<c:forEach items="${tipos}" var="tipoPreco" varStatus="status">
 			<div>
@@ -48,8 +52,7 @@
 		</c:forEach>
 
 		<div>
-			<label>Sumário</label>
-			<input name="sumario" type="file" />
+			<label>Sumário</label> <input name="sumario" type="file" />
 		</div>
 
 		<button type="submit">Cadastrar</button>
