@@ -1,5 +1,8 @@
 package br.com.casadocodigo.loja.conf;
 
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -23,6 +26,7 @@ import br.com.casadocodigo.loja.models.CarrinhoCompras;
 
 @EnableWebMvc
 @ComponentScan(basePackageClasses = { HomeController.class, ProdutoDAO.class, FileSaver.class, CarrinhoCompras.class })
+@EnableCaching
 public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 
 	@Bean
@@ -68,6 +72,14 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 	}
 
 	/**
+	 * Habilitar cacheable no spring
+	 */
+	@Bean
+	public CacheManager cacheManager() {
+		return new ConcurrentMapCacheManager();
+	}
+	
+	/**
 	 * Por padrão o spring nega acesso a pasta resources, para liberar o acesso
 	 * temos que implementar o metodo abaixo E extender WebMvcConfigurerAdapter
 	 * 
@@ -76,5 +88,5 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
 	}
-
+	
 }
