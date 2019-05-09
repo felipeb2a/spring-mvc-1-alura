@@ -120,11 +120,29 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.5.1</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>27.1-jre</version>
+		</dependency>
+
+
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>4.1.0.RELEASE</version>
+		</dependency>
+
+
 		<!-- <dependency> -->
 		<!-- <groupId>org.hibernate</groupId> -->
 		<!-- <artifactId>hibernate-validator</artifactId> -->
 		<!-- <version>4.3.0.Final</version> -->
 		<!-- </dependency> -->
+
 	</dependencies>
 
 	<properties>
