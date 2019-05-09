@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -29,7 +30,7 @@ public class ProdutosController {
 
 	@Autowired
 	private ProdutoDAO produtoDao;
-	
+
 	@Autowired
 	private FileSaver fileSaver;
 
@@ -48,13 +49,14 @@ public class ProdutosController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	@CacheEvict(value="proddutosHome",allEntries = true)
-	public ModelAndView gravar(MultipartFile sumario, @Valid Produto produto, BindingResult result, RedirectAttributes redirectAttributes) {
+	@CacheEvict(value = "proddutosHome", allEntries = true)
+	public ModelAndView gravar(MultipartFile sumario, @Valid Produto produto, BindingResult result,
+			RedirectAttributes redirectAttributes) {
 
 		if (result.hasErrors()) {
 			return form(produto);
 		}
-		
+
 		String path = fileSaver.write("arquivos-sumario", sumario);
 		produto.setSumarioPath(path);
 
@@ -73,12 +75,20 @@ public class ProdutosController {
 		modelAndView.addObject("produtos", produtos);
 		return modelAndView;
 	}
-	
+
 	@RequestMapping("/detalhe/{id}")
 	public ModelAndView detalhe(@PathVariable("id") Integer id) {
 		ModelAndView modelAndView = new ModelAndView("produtos/detalhe");
 		Produto produto = produtoDao.fing(id);
 		modelAndView.addObject("produto", produto);
-		
-		return modelAndView;}
+
+		return modelAndView;
+	}
+
+	@RequestMapping("/{id}")
+	@ResponseBody
+	public Produto detalheJSON(@PathVariable("id") Integer id){
+		Produto produto = produtoDao.fing(id);
+	    return produto;
+	}
 }
