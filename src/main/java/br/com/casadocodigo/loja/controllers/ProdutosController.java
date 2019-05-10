@@ -70,7 +70,7 @@ public class ProdutosController {
 	public ModelAndView listar() {
 
 		List<Produto> produtos = produtoDao.listar();
-		ModelAndView modelAndView = new ModelAndView("/produtos/lista");
+		ModelAndView modelAndView = new ModelAndView("produtos/lista");
 		modelAndView.addObject("produtos", produtos);
 		return modelAndView;
 	}
