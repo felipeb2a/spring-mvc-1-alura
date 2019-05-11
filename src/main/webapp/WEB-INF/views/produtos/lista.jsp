@@ -47,6 +47,11 @@ h1 {
 			        Usuário: ${usuario.username}
 			    </a>
 			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link active" href="${s:mvcUrl('LC#logout').build() }">
+					Sair
+			    </a>
+			  </li>
 			</ul>
 		</div>
 	</nav>
