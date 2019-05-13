@@ -4,8 +4,6 @@
 <%@ attribute name="titulo" required="true" %>
 <%@ attribute name="bodyClass" required="false" %>
 
-<%@ attribute name="extraScripts" fragment="true" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,11 +34,7 @@
 
     <jsp:doBody />
 
-    <!-- fragmentos na pagina -->
-	<jsp:invoke fragment="extraScripts" />
-	
     <%@ include file="/WEB-INF/views/rodape.jsp" %>
-    
 
 </body>
 </html>
