@@ -14,6 +14,10 @@ public class CarrinhoItem implements Serializable{
 		this.produto = produto;
 		this.tipoPreco = tipoPreco;
 	}
+	
+	public BigDecimal getPreco() {
+		return produto.precoPara(tipoPreco);
+	}
 
 	public Produto getProduto() {
 		return produto;
@@ -29,14 +33,6 @@ public class CarrinhoItem implements Serializable{
 
 	public void setTipoPreco(TipoPreco tipoPreco) {
 		this.tipoPreco = tipoPreco;
-	}
-	
-	public BigDecimal getPreco() {
-		return produto.precoPara(tipoPreco);
-	}
-	
-	public BigDecimal getTotal(int quantidade) {
-		return this.getPreco().multiply(new BigDecimal(quantidade));
 	}
 
 	@Override
@@ -66,5 +62,8 @@ public class CarrinhoItem implements Serializable{
 			return false;
 		return true;
 	}
-
+	
+	public BigDecimal getTotal(int quantidade) {
+		return this.getPreco().multiply(new BigDecimal(quantidade));			
+	}
 }

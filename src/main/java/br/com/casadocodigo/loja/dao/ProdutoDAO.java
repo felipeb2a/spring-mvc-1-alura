@@ -1,4 +1,4 @@
-package br.com.casadocodigo.loja.daos;
+package br.com.casadocodigo.loja.dao;
 
 import java.util.List;
 
@@ -10,25 +10,23 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.casadocodigo.loja.models.Produto;
 
-@Repository // mapeia o produtodao
+@Repository
 @Transactional
 public class ProdutoDAO {
 
 	@PersistenceContext
 	private EntityManager manager;
-
+	
 	public void gravar(Produto produto) {
 		manager.persist(produto);
 	}
 
 	public List<Produto> listar() {
-		return manager.createQuery("select p from Produto p", Produto.class).getResultList();
-
+		return manager.createQuery("select p from Produto p", Produto.class)
+				.getResultList();
 	}
 
 	public Produto find(Integer id) {
-		return manager.createQuery("select distinct(p) from Produto p " + "join fetch p.precos precos where p.id = :id",
-				Produto.class).setParameter("id", id).getSingleResult();
+        return manager.createQuery("select distinct(p) from Produto p join fetch p.precos precos where p.id = :id", Produto.class).setParameter("id", id).getSingleResult();
 	}
-
 }

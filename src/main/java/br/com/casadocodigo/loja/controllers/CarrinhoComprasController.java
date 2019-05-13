@@ -1,7 +1,5 @@
 package br.com.casadocodigo.loja.controllers;
 
-import java.io.Serializable;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -18,40 +16,33 @@ import br.com.casadocodigo.loja.models.TipoPreco;
 
 @Controller
 @RequestMapping("/carrinho")
-@Scope(value = WebApplicationContext.SCOPE_REQUEST)
-public class CarrinhoComprasController implements Serializable{
-
-	private static final long serialVersionUID = 1L;
+@Scope(value=WebApplicationContext.SCOPE_REQUEST)
+public class CarrinhoComprasController {
 
 	@Autowired
 	private ProdutoDAO produtoDao;
-
+	
 	@Autowired
 	private CarrinhoCompras carrinho;
-
+	
 	@RequestMapping("/add")
 	public ModelAndView add(Integer produtoId, TipoPreco tipoPreco) {
-
 		ModelAndView modelAndView = new ModelAndView("redirect:/carrinho");
 		CarrinhoItem carrinhoItem = criaItem(produtoId, tipoPreco);
-
 		carrinho.add(carrinhoItem);
-
 		return modelAndView;
-
 	}
 	
-	public CarrinhoItem criaItem(Integer produtoId, TipoPreco tipoPreco) {
-		
-		Produto produto =  produtoDao.fing(produtoId);
-		CarrinhoItem carrinhoItem = new CarrinhoItem(produto, tipoPreco);
-		
-		return carrinhoItem;
-	}
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(method=RequestMethod.GET)
 	public ModelAndView itens() {
 		return new ModelAndView("carrinho/itens");
+	}
+
+	private CarrinhoItem criaItem(Integer produtoId, TipoPreco tipoPreco) {
+		Produto produto = this.produtoDao.find(produtoId);
+		CarrinhoItem carrinhoItem = new CarrinhoItem(produto, tipoPreco);
+		return carrinhoItem;
 	}
 	
 	@RequestMapping("/remover")
@@ -59,5 +50,5 @@ public class CarrinhoComprasController implements Serializable{
 		carrinho.remover(produtoId, tipoPreco);
 		return new ModelAndView("redirect:/carrinho");
 	}
-
+	
 }

@@ -15,16 +15,15 @@ import br.com.casadocodigo.loja.models.Produto;
 public class HomeController {
 
 	@Autowired
-	ProdutoDAO produtoDao;
+	private ProdutoDAO produtoDao;
 	
 	@RequestMapping("/")
-	@Cacheable("produtosHome")
+	@Cacheable(value="produtosHome")
 	public ModelAndView index() {
-		
 		List<Produto> produtos = produtoDao.listar();
-		ModelAndView modelAndView =  new ModelAndView("home");
+		ModelAndView modelAndView = new ModelAndView("home");
 		modelAndView.addObject("produtos", produtos);
-
+		
 		return modelAndView;
 	}
 }

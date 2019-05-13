@@ -35,7 +35,7 @@ import br.com.casadocodigo.loja.models.CarrinhoCompras;
 
 @EnableWebMvc
 @ComponentScan(basePackageClasses = { HomeController.class, ProdutoDAO.class, FileSaver.class, CarrinhoCompras.class })
-@EnableCaching //habilitar cache
+@EnableCaching
 public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 
 	@Bean
@@ -44,6 +44,7 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 		resolver.setPrefix("/WEB-INF/views/");
 		resolver.setSuffix(".jsp");
 
+		// resolver.setExposeContextBeansAsAttributes(true);
 		resolver.setExposedContextBeanNames("carrinhoCompras");
 
 		return resolver;
@@ -61,13 +62,11 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 	@Bean
 	public FormattingConversionService mvcConversionService() {
 		DefaultFormattingConversionService conversionService = new DefaultFormattingConversionService();
-
 		DateFormatterRegistrar registrar = new DateFormatterRegistrar();
 		registrar.setFormatter(new DateFormatter("dd/MM/yyyy"));
 		registrar.registerFormatters(conversionService);
 
 		return conversionService;
-
 	}
 
 	@Bean
@@ -80,38 +79,17 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 		return new RestTemplate();
 	}
 
-	/**
-	 * Habilitar cacheable no spring
-	 */
 	@Bean
-	public CacheManager cacheManager() {
-		CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder().
-				maximumSize(100).expireAfterAccess(5, TimeUnit.MINUTES);
+	public CacheManager cacheManger() {
+		CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder().maximumSize(100).expireAfterAccess(5,
+				TimeUnit.MINUTES);
 		GuavaCacheManager manager = new GuavaCacheManager();
 		manager.setCacheBuilder(builder);
-
-		return manager;
+		return  manager; //new ConcurrentMapCacheManager();
 	}
 	
-	  
-	/**
-	 * Por padrão o spring nega acesso a pasta resources, para liberar o acesso
-	 * temos que implementar o metodo abaixo E extender WebMvcConfigurerAdapter
-	 * 
-	 */
-	@Override
-	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-		configurer.enable();
-	}
-	
-	/**
-	 * Exibir json e outros tipos
-	 * 
-	 * @param manager
-	 * @return
-	 */
 	@Bean
-	public ViewResolver contentNegotiatingViewResolver(ContentNegotiationManager manager){
+	public ViewResolver contentNegotiationViewResolver(ContentNegotiationManager manager) {
 		List<ViewResolver> viewResolvers = new ArrayList<>();
 		viewResolvers.add(internalResourceViewResolver());
 		viewResolvers.add(new JsonViewResolver());
@@ -119,8 +97,13 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 		ContentNegotiatingViewResolver resolver = new ContentNegotiatingViewResolver();
 		resolver.setViewResolvers(viewResolvers);
 		resolver.setContentNegotiationManager(manager);
-		
 		return resolver;
 	}
+
+	@Override
+	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+		configurer.enable();
+	}
+	
 	
 }
