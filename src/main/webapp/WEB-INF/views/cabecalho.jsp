@@ -23,6 +23,15 @@
 						<li><a href="/pages/sobre-a-casa-do-codigo" rel="nofollow">
 							<fmt:message key="menu.sobre"/>
 						</a></li>
+						<li><a href="/pages/sobre-a-casa-do-codigo" rel="nofollow">
+							<fmt:message key="menu.sobre"/>
+						</a></li>
+						<li><a href="?locale=pt" rel="nofollow">
+							<fmt:message key="menu.pt"/>
+						</a></li>
+						<li><a href="?locale=en_US" rel="nofollow">
+							<fmt:message key="menu.en"/>
+						</a></li>
 					<security:authorize access="isAuthenticated()">
 				      	 <li><a href="<c:url value="/logout" />">Sair</a></li>
 				    </security:authorize>
