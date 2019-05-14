@@ -17,8 +17,9 @@
 						<li><a href="${s:mvcUrl('PC#form').build() }" rel="nofollow">Cadastro de Produtos</a></li>
 					</security:authorize>
 						<li><a href="${s:mvcUrl('CCC#itens').build() }" rel="nofollow">
-							<fmt:message key="menu.carrinho"/> 
-						</a></li>
+							<s:message code="menu.carrinho" arguments="${carrinhoCompras.quantidade}" />
+							</a>
+						</li>
 						<li><a href="/pages/sobre-a-casa-do-codigo" rel="nofollow">
 							<fmt:message key="menu.sobre"/>
 						</a></li>
