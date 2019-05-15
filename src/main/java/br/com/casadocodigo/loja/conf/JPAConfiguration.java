@@ -27,7 +27,8 @@ public class JPAConfiguration {
 
 		JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		factoryBean.setJpaVendorAdapter(vendorAdapter);
-		factoryBean.setJpaProperties(aditionalProperties());
+		Properties props = aditionalProperties();
+		factoryBean.setJpaProperties(props);
 
 		return factoryBean;
 	}
