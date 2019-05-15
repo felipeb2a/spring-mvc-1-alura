@@ -5,21 +5,40 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.casadocodigo.loja.builders.ProdutoBuilder;
+import br.com.casadocodigo.loja.conf.JPAConfiguration;
 import br.com.casadocodigo.loja.models.Produto;
 import br.com.casadocodigo.loja.models.TipoPreco;
 
+/**
+ * 
+ * A anotação @RunWith do próprio JUnit nos permite dizer que classe irá
+ * executar os testes encontrados na nossa suite de testes. Já a
+ * anotação @ContextConfiguration nos permite configurar quais são as classes de
+ * configurações para execução dos testes. Como estamos usando conexão com o
+ * banco de dados, precisamos da classe que configura a JPA e o ProdutoDAO neste
+ * caso.
+ * 
+ * @author felipe.ferreira
+ *
+ */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { JPAConfiguration.class, ProdutoDAO.class })
 public class ProdutoDAOTest {
 
-	List<Produto> livrosImpressos = ProdutoBuilder.newProduto(TipoPreco.IMPRESSO, BigDecimal.TEN).more(3).buildAll();
-
-	List<Produto> livrosEbook = ProdutoBuilder.newProduto(TipoPreco.EBOOK, BigDecimal.TEN).more(3).buildAll();
+	@Autowired
+    private ProdutoDAO produtoDao;
 
 	@Test // Lembre-se de marcar o método com a anotação @Test para que o JUnit saiba que
 			// este método é um teste a ser executado.
+	@Transactional
 	public void deveSomarTodosOsPrecosPorTipoLivro() {
-		ProdutoDAO produtoDAO = new ProdutoDAO();
 
 		List<Produto> livrosImpressos = ProdutoBuilder.newProduto(TipoPreco.IMPRESSO, BigDecimal.TEN).more(3)
 				.buildAll();
@@ -30,10 +49,10 @@ public class ProdutoDAOTest {
 		 * um dos produtos no banco de dados com o objeto da classe ProdutoDAO. Usando
 		 * streams do Java 8, teremos o seguinte resultado.
 		 */
-		livrosImpressos.stream().forEach(produtoDAO::gravar);
-		livrosEbook.stream().forEach(produtoDAO::gravar);
+		livrosImpressos.stream().forEach(produtoDao::gravar);
+		livrosEbook.stream().forEach(produtoDao::gravar);
 
-		BigDecimal valor = produtoDAO.somaPrecosPorTipo(TipoPreco.EBOOK);
+		BigDecimal valor = produtoDao.somaPrecosPorTipo(TipoPreco.EBOOK);
 
 		/**
 		 * 
