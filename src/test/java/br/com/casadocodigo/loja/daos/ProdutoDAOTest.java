@@ -7,11 +7,13 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.casadocodigo.loja.builders.ProdutoBuilder;
+import br.com.casadocodigo.loja.conf.DataSourceConfigurationTest;
 import br.com.casadocodigo.loja.conf.JPAConfiguration;
 import br.com.casadocodigo.loja.models.Produto;
 import br.com.casadocodigo.loja.models.TipoPreco;
@@ -29,7 +31,26 @@ import br.com.casadocodigo.loja.models.TipoPreco;
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { JPAConfiguration.class, ProdutoDAO.class })
+
+/**
+ * O que podemos fazer é dividir as configurações da aplicação por meio de
+ * Profiles, que é um recurso no qual podemos agrupar configurações para
+ * determinadas partes da aplicação. A anotação @ActiveProfiles nos ajuda com
+ * esta tarefa. Marcaremos então a classe ProdutoDAOTest com esta anotação
+ * passando o valor test
+ * 
+ * @author felipe.ferreira
+ *
+ */
+@ActiveProfiles("test")
+
+/**
+ * Passamos as classes que serão gerenciadas pelo spring para injeção
+ * 
+ * @author felipe.ferreira
+ *
+ */
+@ContextConfiguration(classes = { JPAConfiguration.class, ProdutoDAO.class, DataSourceConfigurationTest.class })
 public class ProdutoDAOTest {
 
 	@Autowired
